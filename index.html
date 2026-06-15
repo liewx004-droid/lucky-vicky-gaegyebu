@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🍀 럭키비키 가계부</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -457,7 +458,11 @@
 </div>
 
 <script>
-  let entries = JSON.parse(localStorage.getItem('ggm_entries') || '[]');
+  const SUPABASE_URL = 'https://daglzzqaorjtridgicik.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_g37OXisP9Dpkvd6-D94f9g_tjlaGf6k';
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let entries = [];
 
   function fmt(n) {
     return '₩' + Math.round(n).toLocaleString('ko-KR');
@@ -483,7 +488,24 @@
     if (prev) sel.value = prev;
   }
 
-  function addEntry() {
+  async function loadEntries() {
+    const { data, error } = await db
+      .from('transactions')
+      .select('*')
+      .order('date', { ascending: false });
+    if (error) { console.error(error); return; }
+    entries = data.map(r => ({
+      id: r.id,
+      date: r.date,
+      type: r.type,
+      desc: r.description,
+      amount: parseFloat(r.amount)
+    }));
+    updateMonthFilter();
+    render();
+  }
+
+  async function addEntry() {
     const date   = document.getElementById('f-date').value;
     const type   = document.getElementById('f-type').value;
     const desc   = document.getElementById('f-desc').value.trim();
@@ -493,25 +515,22 @@
     if (!desc)             { document.getElementById('f-desc').focus(); return; }
     if (!amount || amount <= 0) { document.getElementById('f-amount').focus(); return; }
 
-    entries.push({ id: Date.now(), date, type, desc, amount });
-    save();
+    const { error } = await db.from('transactions').insert({
+      date, type, description: desc, amount
+    });
+    if (error) { alert('저장 실패: ' + error.message); return; }
+
     document.getElementById('f-desc').value   = '';
     document.getElementById('f-amount').value = '';
     document.getElementById('f-desc').focus();
-    updateMonthFilter();
-    render();
+    await loadEntries();
   }
 
-  function deleteEntry(id) {
+  async function deleteEntry(id) {
     if (!confirm('🗑️ 이 내역을 삭제할까요?')) return;
-    entries = entries.filter(e => e.id !== id);
-    save();
-    updateMonthFilter();
-    render();
-  }
-
-  function save() {
-    localStorage.setItem('ggm_entries', JSON.stringify(entries));
+    const { error } = await db.from('transactions').delete().eq('id', id);
+    if (error) { alert('삭제 실패: ' + error.message); return; }
+    await loadEntries();
   }
 
   function render() {
@@ -570,8 +589,7 @@
   });
 
   initDate();
-  updateMonthFilter();
-  render();
+  loadEntries();
 </script>
 </body>
 </html>
