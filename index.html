@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🍀 럭키비키 가계부</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fce4f3 0%, #e8d5ff 40%, #d0f0ff 100%);
+      min-height: 100vh;
+      color: #3a2d4e;
+    }
+
+    /* 떠다니는 배경 꾸밈 */
+    body::before {
+      content: '🍀✨🌈⭐🍀✨🌈⭐🍀✨🌈';
+      position: fixed;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      font-size: 28px;
+      letter-spacing: 40px;
+      opacity: 0.12;
+      pointer-events: none;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: floatRow 18s linear infinite;
+    }
+
+    @keyframes floatRow {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* 헤더 */
+    header {
+      text-align: center;
+      padding: 2.2rem 1rem 1.5rem;
+      position: relative;
+    }
+
+    header .title-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 999px;
+      padding: 10px 28px;
+      box-shadow: 0 4px 20px rgba(200, 150, 220, 0.35);
+      border: 2px solid #f0c0e8;
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #d060b0, #9040e0, #40a0e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header .sub {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #b090c8;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    /* 카드 공통 */
+    .card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      border: 2px solid rgba(255,255,255,0.9);
+      box-shadow: 0 6px 28px rgba(180, 120, 220, 0.18);
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    /* 요약 */
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 1.2rem;
+    }
+
+    .summary-card {
+      border-radius: 20px;
+      padding: 1.1rem 1.2rem;
+      text-align: center;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .summary-card.s-income {
+      background: linear-gradient(135deg, #d4f7e8, #a8edcd);
+      border-color: #7de0b0;
+    }
+    .summary-card.s-expense {
+      background: linear-gradient(135deg, #ffe0f0, #ffc0d8);
+      border-color: #ffaacc;
+    }
+    .summary-card.s-balance {
+      background: linear-gradient(135deg, #e8d8ff, #d0b8ff);
+      border-color: #c098f8;
+    }
+
+    .summary-card .s-icon {
+      font-size: 26px;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .summary-card .s-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    .s-income  .s-label { color: #0f7a55; }
+    .s-expense .s-label { color: #b03070; }
+    .s-balance .s-label { color: #6030b0; }
+
+    .summary-card .s-value {
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .s-income  .s-value { color: #0a6040; }
+    .s-expense .s-value { color: #9a1050; }
+    .s-balance .s-value { color: #5020a0; }
+    .s-balance .s-value.neg { color: #d03060; }
+
+    /* 폼 */
+    .form-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #8040c8;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 130px 110px 1fr 140px auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .form-row input,
+    .form-row select {
+      height: 40px;
+      padding: 0 12px;
+      border: 2px solid #e0c8f8;
+      border-radius: 14px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      color: #3a2d4e;
+      background: rgba(255,255,255,0.9);
+      outline: none;
+      width: 100%;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .form-row input:focus,
+    .form-row select:focus {
+      border-color: #c080f0;
+      box-shadow: 0 0 0 3px rgba(180, 100, 240, 0.15);
+    }
+
+    .form-row input[type="number"]::-webkit-inner-spin-button,
+    .form-row input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+
+    .btn-add {
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #c060e0, #8040c8);
+      color: #fff;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(160, 60, 210, 0.4);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .btn-add:hover  { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(160, 60, 210, 0.5); }
+    .btn-add:active { transform: scale(0.97); }
+
+    /* 필터 */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-bar .f-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #9060c0;
+    }
+
+    .filter-bar select {
+      height: 34px;
+      padding: 0 12px;
+      border: 2px solid #e0c8f8;
+      border-radius: 12px;
+      font-size: 13px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      color: #3a2d4e;
+      background: rgba(255,255,255,0.9);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .filter-bar select:focus {
+      border-color: #c080f0;
+    }
+
+    /* 목록 */
+    .list-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      border: 2px solid rgba(255,255,255,0.9);
+      box-shadow: 0 6px 28px rgba(180, 120, 220, 0.18);
+      overflow: hidden;
+    }
+
+    .list-header {
+      display: grid;
+      grid-template-columns: 110px 1fr 80px 130px 42px;
+      gap: 8px;
+      padding: 10px 18px;
+      background: linear-gradient(90deg, rgba(220,180,255,0.4), rgba(180,220,255,0.4));
+      font-size: 11px;
+      font-weight: 800;
+      color: #9060c0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .list-header span:nth-child(4) { text-align: right; }
+
+    .list-empty {
+      padding: 3rem;
+      text-align: center;
+      color: #c0a0d8;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .list-empty .e-icon { font-size: 42px; margin-bottom: 10px; }
+
+    .list-item {
+      display: grid;
+      grid-template-columns: 110px 1fr 80px 130px 42px;
+      gap: 8px;
+      padding: 12px 18px;
+      border-bottom: 1.5px dashed rgba(200,160,240,0.35);
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.12s;
+    }
+
+    .list-item:last-child { border-bottom: none; }
+    .list-item:hover { background: rgba(230, 200, 255, 0.2); }
+
+    .date-cell {
+      font-size: 12px;
+      color: #a080c0;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-income  { background: #c8f5e0; color: #0a7045; border: 1.5px solid #80d8a8; }
+    .badge-expense { background: #ffd8ee; color: #a0206a; border: 1.5px solid #ffaad0; }
+
+    .amount-cell {
+      text-align: right;
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .amount-income  { color: #0a8050; }
+    .amount-expense { color: #c02870; }
+
+    .btn-del {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      border: 2px solid #f0d0f8;
+      background: transparent;
+      color: #d0a0e0;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      margin: auto;
+    }
+
+    .btn-del:hover {
+      background: #ffe0f4;
+      color: #d03080;
+      border-color: #ffaacc;
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .list-footer {
+      padding: 10px 18px;
+      background: linear-gradient(90deg, rgba(220,180,255,0.3), rgba(180,220,255,0.3));
+      font-size: 12px;
+      font-weight: 700;
+      color: #9060c0;
+      text-align: right;
+    }
+
+    /* 럭키 장식 */
+    .lucky-deco {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #c090e0;
+      margin-top: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 640px) {
+      .summary { grid-template-columns: 1fr; }
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .form-row input[type="text"] { grid-column: 1 / -1; }
+      .btn-add { grid-column: 1 / -1; }
+      .list-header { display: none; }
+      .list-item {
+        grid-template-columns: 1fr auto 42px;
+        grid-template-rows: auto auto;
+        row-gap: 4px;
+      }
+      .list-item .date-cell   { grid-row: 2; grid-column: 1; }
+      .list-item .desc-cell   { grid-row: 1; grid-column: 1; }
+      .list-item .type-cell   { grid-row: 1; grid-column: 2; }
+      .list-item .amount-cell { grid-row: 2; grid-column: 2; text-align: right; }
+      .list-item .del-cell    { grid-row: 1 / 3; grid-column: 3; align-self: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="title-badge">
+    <span style="font-size:22px">🍀</span>
+    <h1>럭키비키 가계부</h1>
+    <span style="font-size:22px">✨</span>
+  </div>
+  <p class="sub">오늘도 돈을 현명하게! 럭키비키 🌈</p>
+</header>
+
+<div class="container">
+
+  <!-- 요약 -->
+  <div class="summary">
+    <div class="summary-card s-income">
+      <span class="s-icon">🌿</span>
+      <div class="s-label">총 수입</div>
+      <div class="s-value" id="total-income">₩0</div>
+    </div>
+    <div class="summary-card s-expense">
+      <span class="s-icon">🛍️</span>
+      <div class="s-label">총 지출</div>
+      <div class="s-value" id="total-expense">₩0</div>
+    </div>
+    <div class="summary-card s-balance">
+      <span class="s-icon">💜</span>
+      <div class="s-label">잔액</div>
+      <div class="s-value" id="balance">₩0</div>
+    </div>
+  </div>
+
+  <!-- 입력 폼 -->
+  <div class="card">
+    <div class="form-title">✏️ 내역 추가하기</div>
+    <div class="form-row">
+      <input type="date" id="f-date" title="날짜" />
+      <select id="f-type" title="구분">
+        <option value="income">💚 수입</option>
+        <option value="expense">💸 지출</option>
+      </select>
+      <input type="text" id="f-desc" placeholder="항목명 (예: 점심식사 🍱)" title="항목명" />
+      <input type="number" id="f-amount" placeholder="금액" min="0" title="금액" />
+      <button class="btn-add" onclick="addEntry()">✨ 추가</button>
+    </div>
+  </div>
+
+  <!-- 필터 -->
+  <div class="filter-bar">
+    <span class="f-label">🔍 필터</span>
+    <select id="filter-month" onchange="render()" title="월 선택"></select>
+    <select id="filter-type" onchange="render()" title="유형 선택">
+      <option value="all">🌈 전체</option>
+      <option value="income">💚 수입만</option>
+      <option value="expense">🩷 지출만</option>
+    </select>
+  </div>
+
+  <!-- 목록 -->
+  <div class="list-card">
+    <div class="list-header">
+      <span>📅 날짜</span>
+      <span>📝 항목</span>
+      <span>🏷️ 구분</span>
+      <span>💰 금액</span>
+      <span></span>
+    </div>
+    <div id="list-body"></div>
+    <div class="list-footer" id="list-footer" style="display:none"></div>
+  </div>
+
+  <div class="lucky-deco">🍀 lucky vicky ~ 🍀 lucky vicky ~ 🍀</div>
+
+</div>
+
+<script>
+  let entries = JSON.parse(localStorage.getItem('ggm_entries') || '[]');
+
+  function fmt(n) {
+    return '₩' + Math.round(n).toLocaleString('ko-KR');
+  }
+
+  function initDate() {
+    document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
+  }
+
+  function updateMonthFilter() {
+    const sel = document.getElementById('filter-month');
+    const prev = sel.value;
+    sel.innerHTML = '<option value="all">🗓️ 전체 기간</option>';
+    const months = new Set(entries.map(e => e.date.slice(0, 7)));
+    months.add(new Date().toISOString().slice(0, 7));
+    Array.from(months).sort().reverse().forEach(m => {
+      const [y, mo] = m.split('-');
+      const opt = document.createElement('option');
+      opt.value = m;
+      opt.textContent = y + '년 ' + parseInt(mo) + '월 ✨';
+      sel.appendChild(opt);
+    });
+    if (prev) sel.value = prev;
+  }
+
+  function addEntry() {
+    const date   = document.getElementById('f-date').value;
+    const type   = document.getElementById('f-type').value;
+    const desc   = document.getElementById('f-desc').value.trim();
+    const amount = parseFloat(document.getElementById('f-amount').value);
+
+    if (!date)             { alert('📅 날짜를 선택해 주세요!'); return; }
+    if (!desc)             { document.getElementById('f-desc').focus(); return; }
+    if (!amount || amount <= 0) { document.getElementById('f-amount').focus(); return; }
+
+    entries.push({ id: Date.now(), date, type, desc, amount });
+    save();
+    document.getElementById('f-desc').value   = '';
+    document.getElementById('f-amount').value = '';
+    document.getElementById('f-desc').focus();
+    updateMonthFilter();
+    render();
+  }
+
+  function deleteEntry(id) {
+    if (!confirm('🗑️ 이 내역을 삭제할까요?')) return;
+    entries = entries.filter(e => e.id !== id);
+    save();
+    updateMonthFilter();
+    render();
+  }
+
+  function save() {
+    localStorage.setItem('ggm_entries', JSON.stringify(entries));
+  }
+
+  function render() {
+    const monthFilter = document.getElementById('filter-month').value;
+    const typeFilter  = document.getElementById('filter-type').value;
+
+    const filtered = entries.filter(e => {
+      if (monthFilter !== 'all' && !e.date.startsWith(monthFilter)) return false;
+      if (typeFilter  !== 'all' && e.type !== typeFilter)           return false;
+      return true;
+    });
+
+    const totalIncome  = entries.reduce((s, e) => e.type === 'income'  ? s + e.amount : s, 0);
+    const totalExpense = entries.reduce((s, e) => e.type === 'expense' ? s + e.amount : s, 0);
+    const balance = totalIncome - totalExpense;
+
+    document.getElementById('total-income').textContent  = fmt(totalIncome);
+    document.getElementById('total-expense').textContent = fmt(totalExpense);
+
+    const balEl = document.getElementById('balance');
+    balEl.textContent = fmt(balance);
+    balEl.className = 's-value' + (balance < 0 ? ' neg' : '');
+
+    const body = document.getElementById('list-body');
+
+    if (filtered.length === 0) {
+      body.innerHTML = `<div class="list-empty"><div class="e-icon">🍀</div>내역이 없어요!<br>첫 기록을 추가해봐요 ✨</div>`;
+      document.getElementById('list-footer').style.display = 'none';
+      return;
+    }
+
+    const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+
+    body.innerHTML = sorted.map(e => `
+      <div class="list-item">
+        <span class="date-cell">${e.date.replace(/-/g, '.')}</span>
+        <span class="desc-cell">${e.desc}</span>
+        <span class="type-cell"><span class="badge ${e.type === 'income' ? 'badge-income' : 'badge-expense'}">${e.type === 'income' ? '💚 수입' : '🩷 지출'}</span></span>
+        <span class="amount-cell amount-${e.type}">${e.type === 'expense' ? '−' : '+'}${fmt(e.amount)}</span>
+        <span class="del-cell"><button class="btn-del" onclick="deleteEntry(${e.id})" title="삭제">✕</button></span>
+      </div>
+    `).join('');
+
+    const filteredIncome  = filtered.reduce((s, e) => e.type === 'income'  ? s + e.amount : s, 0);
+    const filteredExpense = filtered.reduce((s, e) => e.type === 'expense' ? s + e.amount : s, 0);
+    const footer = document.getElementById('list-footer');
+    footer.style.display = 'block';
+    footer.textContent = `✨ ${filtered.length}건 — 수입 ${fmt(filteredIncome)} / 지출 ${fmt(filteredExpense)}`;
+  }
+
+  document.getElementById('f-amount').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addEntry();
+  });
+  document.getElementById('f-desc').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('f-amount').focus();
+  });
+
+  initDate();
+  updateMonthFilter();
+  render();
+</script>
+</body>
+</html>
