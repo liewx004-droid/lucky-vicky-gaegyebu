@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#fdf2f8"/>
+  <!-- shoe sole -->
+  <ellipse cx="205" cy="268" rx="110" ry="18" fill="#1e293b"/>
+  <!-- shoe body -->
+  <path d="M 100 260 Q 100 200 130 180 Q 160 160 200 160 Q 240 160 270 185 Q 300 205 310 240 Q 315 255 310 265 Q 280 270 200 272 Q 130 272 100 260 Z" fill="#f43f5e"/>
+  <!-- shoe toe -->
+  <path d="M 100 260 Q 90 258 88 250 Q 86 238 95 232 Q 110 225 130 230 Q 128 250 130 258 Z" fill="#e11d48"/>
+  <!-- laces area -->
+  <rect x="160" y="170" width="80" height="70" rx="8" fill="#fda4af" opacity="0.5"/>
+  <!-- laces -->
+  <line x1="163" y1="185" x2="237" y2="185" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <line x1="163" y1="198" x2="237" y2="198" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <line x1="163" y1="211" x2="237" y2="211" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <line x1="163" y1="224" x2="237" y2="224" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <!-- brand stripe -->
+  <path d="M 280 220 Q 310 230 310 240" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <!-- label -->
+  <text x="200" y="320" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#881337">운동화</text>
+  <text x="200" y="345" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#9f1239">의류/잡화</text>
+</svg>

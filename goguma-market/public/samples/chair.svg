@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#f0fdf4"/>
+  <!-- back legs -->
+  <rect x="140" y="200" width="12" height="110" rx="4" fill="#854d0e"/>
+  <rect x="248" y="200" width="12" height="110" rx="4" fill="#854d0e"/>
+  <!-- seat -->
+  <rect x="115" y="185" width="170" height="30" rx="10" fill="#a16207"/>
+  <!-- cushion top -->
+  <rect x="120" y="178" width="160" height="24" rx="8" fill="#ca8a04"/>
+  <!-- back rest -->
+  <rect x="130" y="90" width="140" height="105" rx="12" fill="#a16207"/>
+  <!-- back cushion -->
+  <rect x="137" y="96" width="126" height="92" rx="8" fill="#ca8a04"/>
+  <!-- back detail lines -->
+  <line x1="150" y1="120" x2="250" y2="120" stroke="#92400e" stroke-width="2" opacity="0.4"/>
+  <line x1="150" y1="145" x2="250" y2="145" stroke="#92400e" stroke-width="2" opacity="0.4"/>
+  <line x1="150" y1="170" x2="250" y2="170" stroke="#92400e" stroke-width="2" opacity="0.4"/>
+  <!-- front legs -->
+  <rect x="135" y="210" width="12" height="100" rx="4" fill="#92400e"/>
+  <rect x="253" y="210" width="12" height="100" rx="4" fill="#92400e"/>
+  <!-- floor shadow -->
+  <ellipse cx="200" cy="318" rx="80" ry="8" fill="#4ade80" opacity="0.15"/>
+  <!-- label -->
+  <text x="200" y="350" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#14532d">의자</text>
+  <text x="200" y="375" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#166534">가구/인테리어</text>
+</svg>

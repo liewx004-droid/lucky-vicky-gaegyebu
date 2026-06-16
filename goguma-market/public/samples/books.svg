@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#fffbeb"/>
+  <!-- book 3 (back) -->
+  <rect x="185" y="100" width="70" height="190" rx="4" fill="#0369a1"/>
+  <rect x="185" y="100" width="10" height="190" rx="2" fill="#075985"/>
+  <rect x="196" y="115" width="50" height="6" rx="2" fill="white" opacity="0.6"/>
+  <rect x="196" y="127" width="35" height="4" rx="2" fill="white" opacity="0.4"/>
+  <!-- book 2 (middle) -->
+  <rect x="148" y="115" width="65" height="175" rx="4" fill="#7c3aed"/>
+  <rect x="148" y="115" width="10" height="175" rx="2" fill="#6d28d9"/>
+  <rect x="160" y="130" width="44" height="6" rx="2" fill="white" opacity="0.6"/>
+  <rect x="160" y="142" width="30" height="4" rx="2" fill="white" opacity="0.4"/>
+  <rect x="160" y="154" width="44" height="4" rx="2" fill="white" opacity="0.3"/>
+  <!-- book 1 (front) -->
+  <rect x="110" y="130" width="60" height="160" rx="4" fill="#dc2626"/>
+  <rect x="110" y="130" width="10" height="160" rx="2" fill="#b91c1c"/>
+  <rect x="122" y="148" width="38" height="7" rx="2" fill="white" opacity="0.8"/>
+  <rect x="122" y="162" width="26" height="4" rx="2" fill="white" opacity="0.5"/>
+  <rect x="122" y="172" width="38" height="4" rx="2" fill="white" opacity="0.4"/>
+  <!-- shelf -->
+  <rect x="90" y="290" width="220" height="12" rx="3" fill="#92400e"/>
+  <!-- label -->
+  <text x="200" y="332" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#78350f">책</text>
+  <text x="200" y="357" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#92400e">도서/음반</text>
+</svg>

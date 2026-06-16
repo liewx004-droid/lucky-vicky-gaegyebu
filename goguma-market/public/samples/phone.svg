@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#e8f4fd"/>
+  <!-- phone body -->
+  <rect x="140" y="60" width="120" height="210" rx="18" fill="#1e293b"/>
+  <!-- screen -->
+  <rect x="148" y="80" width="104" height="170" rx="6" fill="#38bdf8"/>
+  <!-- screen content -->
+  <rect x="156" y="90" width="88" height="12" rx="3" fill="#0ea5e9" opacity="0.7"/>
+  <rect x="156" y="108" width="60" height="8" rx="3" fill="white" opacity="0.5"/>
+  <rect x="156" y="120" width="88" height="50" rx="4" fill="#0369a1" opacity="0.5"/>
+  <rect x="156" y="176" width="40" height="8" rx="3" fill="white" opacity="0.4"/>
+  <rect x="200" y="176" width="44" height="8" rx="3" fill="white" opacity="0.4"/>
+  <rect x="156" y="190" width="88" height="40" rx="4" fill="#0369a1" opacity="0.3"/>
+  <!-- home button -->
+  <circle cx="200" cy="290" r="10" fill="#374151"/>
+  <circle cx="200" cy="290" r="7" fill="#4b5563"/>
+  <!-- camera -->
+  <circle cx="200" cy="72" r="4" fill="#374151"/>
+  <!-- label -->
+  <text x="200" y="345" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#1e3a5f">스마트폰</text>
+  <text x="200" y="370" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#64748b">디지털/가전</text>
+</svg>

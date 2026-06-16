@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --goguma-50: #fff8f0;
+  --goguma-100: #ffecd6;
+  --goguma-200: #ffd4a8;
+  --goguma-300: #ffb36b;
+  --goguma-400: #ff8c2e;
+  --goguma-500: #f97316;
+  --goguma-600: #ea6a0a;
+  --goguma-700: #c2500a;
+}
+
+body {
+  background-color: var(--goguma-50);
+  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  color: #1a1a1a;
+}
+
+.goguma-card {
+  background: white;
+  border-radius: 1rem;
+  border: 2px solid var(--goguma-200);
+  box-shadow: 4px 4px 0px var(--goguma-300);
+}
+
+.goguma-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--goguma-500);
+  color: white;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.625rem 1.5rem;
+  border: 2px solid var(--goguma-700);
+  box-shadow: 3px 3px 0px var(--goguma-700);
+  transition: all 0.1s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.goguma-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--goguma-700);
+}
+
+.goguma-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--goguma-700);
+}
+
+.goguma-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: var(--goguma-600);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.625rem 1.5rem;
+  border: 2px solid var(--goguma-400);
+  box-shadow: 3px 3px 0px var(--goguma-300);
+  transition: all 0.1s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.goguma-btn-outline:hover {
+  background-color: var(--goguma-50);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--goguma-300);
+}
+
+.goguma-input {
+  width: 100%;
+  border: 2px solid var(--goguma-200);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--goguma-50);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.goguma-input:focus {
+  border-color: var(--goguma-500);
+  background-color: white;
+}
+
+.goguma-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--goguma-700);
+  margin-bottom: 0.375rem;
+  letter-spacing: 0.03em;
+}
